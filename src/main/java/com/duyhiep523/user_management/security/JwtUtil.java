@@ -43,7 +43,9 @@ public class JwtUtil {
                 .compact();
     }
 
-
+//    public String getUsernameFromToken(String token) {
+//        return getClaimsFromToken(token).getSubject();
+//    }
     private Key getSignKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);

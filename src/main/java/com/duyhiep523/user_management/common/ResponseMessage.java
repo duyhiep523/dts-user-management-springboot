@@ -9,6 +9,7 @@ public class ResponseMessage {
         public static final String LOGIN_TO_ACCESS = "Đăng nhập để truy cập tài nguyên này";
         public static final String NAME_PROJECT = "API Quản lý người dùng - Nguyen Duy Hiep";
         public static final String LOGIN_SUCCESS = "Đăng nhập thành công";
+        public static final String REF_TOKEN_HAS_EXPIRED = "Refresh token has expired. Please sign in again.";
     }
 
     public static class User {
