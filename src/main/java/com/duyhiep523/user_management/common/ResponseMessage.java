@@ -44,6 +44,9 @@ public class ResponseMessage {
         public static final String PHONE_ONLY_DIGITS = "Số điện thoại chỉ được chứa các chữ số";
         public static final String DOB_PAST = "Ngày sinh phải là ngày trong quá khứ";
         public static final String GENDER_INVALID = "Giới tính không hợp lệ";
+        public static final String USER_ALREADY_ADMIN = "Người dùng đã là ADMIN.";
+        public static final String UPDATE_ROLE_TO_ADMIN_SUCCESS = "Cập nhật quyền ADMIN thành công";
+        public static final String Get_ME_SUCCESS = "Lấy thông tin người dùng thành công";
     }
 
     public static class Exception {

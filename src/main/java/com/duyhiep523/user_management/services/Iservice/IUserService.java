@@ -31,4 +31,8 @@ public interface IUserService {
     UserDetailResponse updateUser(String userId, UpdateUserRequest request);
 
     UserDetailResponse disableUser(String userId);
+
+    UserDetailResponse updateRoleToAdmin(String userId);
+
+    UserDetailResponse getCurrentUser();
 }

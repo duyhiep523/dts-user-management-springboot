@@ -2,6 +2,7 @@ package com.duyhiep523.user_management.services;
 
 import com.duyhiep523.user_management.common.ResponseMessage;
 import com.duyhiep523.user_management.common.enums.Gender;
+import com.duyhiep523.user_management.common.enums.Role;
 import com.duyhiep523.user_management.dtos.request.RegisterRequest;
 import com.duyhiep523.user_management.dtos.request.UpdateUserRequest;
 import com.duyhiep523.user_management.dtos.response.PaginationResponse;
@@ -17,6 +18,7 @@ import com.duyhiep523.user_management.specification.UserSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -171,6 +173,32 @@ public class UserService implements IUserService {
 
         user.setActive(false);
         userRepository.save(user);
+
+        return buildUserDetail(user);
+    }
+
+
+    @Override
+    public UserDetailResponse updateRoleToAdmin(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException(ResponseMessage.User.USER_NOT_FOUND));
+
+        if (user.getRole().name().equalsIgnoreCase("ADMIN")) {
+            throw new BadRequestException(ResponseMessage.User.USER_ALREADY_ADMIN);
+        }
+
+        user.setRole(Role.ADMIN); // enum Role của bạn, hoặc Role.valueOf("ADMIN")
+        userRepository.save(user);
+
+        return buildUserDetail(user);
+    }
+
+
+    @Override
+    public UserDetailResponse getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException(ResponseMessage.User.USER_NOT_FOUND));
 
         return buildUserDetail(user);
     }

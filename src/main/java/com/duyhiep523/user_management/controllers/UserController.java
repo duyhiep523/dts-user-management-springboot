@@ -148,4 +148,32 @@ public class UserController {
                 .build();
         return ResponseEntity.ok(response);
     }
+
+
+    @PutMapping("/{userId}/role/admin")
+    public ResponseEntity<?> updateRoleToAdmin(@PathVariable String userId) {
+        UserDetailResponse userResponse = iUserService.updateRoleToAdmin(userId);
+
+        Response<Object> response = Response.builder()
+                .code(HttpStatus.OK.value())
+                .message(ResponseMessage.User.UPDATE_ROLE_TO_ADMIN_SUCCESS)
+                .data(userResponse)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser() {
+        UserDetailResponse userResponse = iUserService.getCurrentUser();
+
+        Response<Object> response = Response.builder()
+                .code(HttpStatus.OK.value())
+                .message(ResponseMessage.User.Get_ME_SUCCESS)
+                .data(userResponse)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
 }
